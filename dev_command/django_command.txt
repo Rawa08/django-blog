@@ -1,0 +1,6 @@
+django-admin startproject appName .
+
+chmod +x manage.py
+
+python3 manage.py migrate
+python3 manage.py runserver

@@ -1,1 +1,2 @@
 pip3 install django==1.11.24
+pip3 install pillow

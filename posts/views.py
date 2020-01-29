@@ -10,8 +10,9 @@ def get_posts(request):
     that were published prior to 'now' and render them
     to the template called blogposts.html
     """
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
-    return render(request, 'blogposts.html', {'posts':posts})
+    posts = Post.objects.filter(published_date__lte=timezone.now()
+        ).order_by('-published_date')
+    return render(request, 'blogposts.html', {'posts': posts})
 
 def post_detail(request, pk):
     """
@@ -32,11 +33,13 @@ def create_or_edit_a_post(request, pk=None):
     a post depending if the post id is null or not
     """  
     post = get_object_or_404(Post, pk=pk) if pk else None
-    if request == 'POST':
+    if request.method == 'POST':
         form = BlogPostForm(request.POST, request.FILES, instance=post)
-        if form.is_valid:
+        if form.is_valid():
             post = form.save()
             return redirect(post_detail, post.pk)
     else:
         form = BlogPostForm(instance=post)
     return render(request, 'blogpostform.html', {'form':form})
+
+    
